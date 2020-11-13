@@ -13,3 +13,25 @@ CREATE TABLE IF NOT EXISTS users (
     password TEXT NOT NULL
 );
 """)
+
+
+def menu():
+    print("****************************************")
+    print("*        i : Inserir nova senha        *")
+    print("*      l : Listas serviços salvos      *")
+    print("*       r : Recuperar uma senha        *")
+    print("*              s : Sair                *")
+    print("****************************************")
+
+
+while True:
+    menu()
+    op = input("Escolha uma opção: ")
+    if op not in ["i", "l", "r", "s"]:
+        print("Opção inválida.")
+        continue
+
+    if op == "s":
+        break
+
+conn.close()
