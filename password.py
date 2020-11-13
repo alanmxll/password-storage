@@ -2,6 +2,11 @@ import sqlite3
 
 MASTER_PASSWORD = "123456"
 
+password = input("Insira sua senha master: ")
+if password != MASTER_PASSWORD:
+    print("Senha inválida! Encerrando...")
+    exit()
+
 conn = sqlite3.connect("passwords.db")
 
 cursor = conn.cursor()
