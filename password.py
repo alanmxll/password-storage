@@ -30,18 +30,26 @@ def menu():
 
 
 def get_password(service):
-    pass
+    cursor.execute(f"""
+        SELECT username, password FROM users
+        WHERE service = '{service}';
+    """)
+    if cursor.rowcount == 0:
+        print("Serviço não cadastrado (use 'l' para verificar os serviços.)")
+    else:
+        for user in cursor.fetchall():
+            print(user)
 
 
-def insert_password(cursor, service, username, password):
+def insert_password(service, username, password):
     cursor.execute(f"""
         INSERT INTO users (service, username, password)
-        VALUES ({service}, {username}, {password});
+        VALUES ('{service}', '{username}', '{password}');
     """)
     conn.commit()
 
 
-def show_services(cursor):
+def show_services():
     cursor.execute("""
         SELECT * FROM users;
     """)
@@ -67,6 +75,10 @@ while True:
 
     if op == "l":
         show_services()
+
+    if op == "r":
+        service = input("Qual o serviço para o qual quer a senha? ")
+        get_password(service)
 
 
 conn.close()
